@@ -25,6 +25,7 @@
         "dataloader": "^1.4.0",
         "dotenv": "^5.0.1",
         "fastify": "^1.3.0",
+        "fastify-jwt": "^0.2.1",
         "graphql": "^0.13.2",
         "graphql-tools": "^2.21.0",
         "joi": "^13.2.0",

@@ -1,8 +1,9 @@
 import Fastify from "fastify";
 import split from "split2";
-import dotenv from "dotenv";
 import { GraphQLError } from "graphql";
 import { formatError } from "apollo-errors";
+import fastifyJWTPlugin from "fastify-jwt";
+
 // Configuration data
 import configStore from "./config";
 
@@ -14,8 +15,6 @@ import GraphQLFastifyPlugin from "./plugins/graphql";
 
 import Errors from "./graphql/errors";
 import Schema from "./graphql";
-
-dotenv.config();
 
 const fastify = Fastify({
     logger: configStore.retrieve("/logger"),
@@ -37,19 +36,27 @@ const errorFormatter = error => {
     return e;
 };
 
-fastify.register(GraphQLFastifyPlugin, {
-    query: {
-        schema: Schema,
-        graphiql: true,
-        formatError: errorFormatter,
-        context: {
-            Loader,
-        },
-    },
-    route: {
-        path: "/graphql",
-    },
-});
+fastify
+    .register(fastifyJWTPlugin, {
+        secret: configStore.retrieve("/jwtSecret"),
+    })
+    .after(err => {
+        if (err) throw err;
+        fastify.register(GraphQLFastifyPlugin, {
+            query: {
+                schema: Schema,
+                graphiql: true,
+                formatError: errorFormatter,
+                context: {
+                    Loader,
+                    JWTUtils: fastify.jwt,
+                },
+            },
+            route: {
+                path: "/graphql",
+            },
+        });
+    });
 
 // Run the server!
 const start = async () => {
