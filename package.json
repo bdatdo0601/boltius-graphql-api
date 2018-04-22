@@ -26,7 +26,6 @@
         "dotenv": "^5.0.1",
         "fastify": "^1.3.0",
         "graphql": "^0.13.2",
-        "graphql-import": "^0.4.5",
         "graphql-tools": "^2.21.0",
         "joi": "^13.2.0",
         "stream": "^0.0.2"
@@ -35,6 +34,7 @@
         "babel-cli": "^6.26.0",
         "babel-core": "^6.0.20",
         "babel-eslint": "^8.2.3",
+        "babel-plugin-inline-import-graphql-ast": "^2.3.6",
         "babel-plugin-transform-object-rest-spread": "^6.26.0",
         "babel-polyfill": "^6.0.16",
         "babel-preset-env": "^1.6.1",
