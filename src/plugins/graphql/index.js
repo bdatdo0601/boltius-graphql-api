@@ -203,7 +203,6 @@ const handler = (options = {}) => async (request, reply) => {
 
         // Format any encountered errors.
         if (result && result.errors) {
-            console.log(result.errors);
             result.errors = result.errors.map(errorFormatter);
         }
 
@@ -221,7 +220,6 @@ const handler = (options = {}) => async (request, reply) => {
                 .send(result);
         }
     } catch (error) {
-        console.log(error);
         // Return error, picking up Boom overrides
         const { statusCode = 500 } = error.output;
         const errors = error.data || [error];
