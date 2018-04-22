@@ -1,5 +1,4 @@
-const helloResolver = async (a, b, c, d) => {
-    console.log(a, b, c, d);
+const helloResolver = async (rootValue, args, context, operations) => {
     return "world";
 };
 
