@@ -4,7 +4,6 @@ const document = Object.freeze({
     logger: {
         $filter: "env",
         production: false,
-        development: true,
         $default: true,
     },
 });
