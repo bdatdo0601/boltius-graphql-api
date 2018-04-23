@@ -10,6 +10,20 @@ const document = Object.freeze({
         $default: true,
     },
     jwtSecret: process.env.jwtSecret,
+    db: {
+        mongo: {
+            uri: {
+                $filter: "env",
+                production: process.env.MONGODB_URI,
+                $default: "mongodb://localhost:27017/",
+            },
+            dbName: {
+                $filter: "env",
+                production: process.env.MONGODB_NAME,
+                $default: "BoltiusDB",
+            },
+        },
+    },
 });
 
 const store = new Confidence.Store();

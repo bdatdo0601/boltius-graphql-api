@@ -9,6 +9,7 @@ import configStore from "./config";
 
 // Database
 import Loader from "./dbLoader";
+import "./dbsetup";
 
 //Plugins
 import GraphQLFastifyPlugin from "./plugins/graphql";
