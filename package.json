@@ -10,7 +10,8 @@
         "build-server": "babel -d ./build ./src -s",
         "start": "nodemon --exec babel-node -- src/index.js",
         "build": "npm run clean && npm run build-server",
-        "start-production": "NODE_ENV=production node ./build/index.js"
+        "start-production": "NODE_ENV=production node ./build/index.js",
+        "test": "babel-node -- test/index.js"
     },
     "nodemonConfig": {
         "delay": 1000
