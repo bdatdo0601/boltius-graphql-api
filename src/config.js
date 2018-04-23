@@ -1,4 +1,7 @@
 import Confidence from "confidence";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const document = Object.freeze({
     logger: {
@@ -6,6 +9,7 @@ const document = Object.freeze({
         production: false,
         $default: true,
     },
+    jwtSecret: process.env.jwtSecret,
 });
 
 const store = new Confidence.Store();
