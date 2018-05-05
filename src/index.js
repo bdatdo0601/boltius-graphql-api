@@ -1,5 +1,4 @@
 import Fastify from "fastify";
-import split from "split2";
 import { GraphQLError } from "graphql";
 import { formatError } from "apollo-errors";
 import fastifyJWTPlugin from "fastify-jwt";
@@ -16,8 +15,13 @@ import GraphQLFastifyPlugin from "./plugins/graphql";
 import Errors from "./graphql/errors";
 import Schema from "./graphql";
 
+const loggerConfig = {
+    level: "info",
+    prettyPrint: true,
+};
+
 const fastify = Fastify({
-    logger: configStore.retrieve("/logger"),
+    logger: configStore.retrieve("/logger") ? loggerConfig : false,
 });
 
 const errorFormatter = error => {
