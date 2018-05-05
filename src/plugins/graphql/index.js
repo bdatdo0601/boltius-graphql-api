@@ -237,6 +237,7 @@ function register(fastify, options = {}, next) {
     const logUtil = fastify.log;
 
     if (!route || !query) {
+        logUtil.error("Invalid Configuration");
         throw new Error("Route or Query not provided");
     }
 

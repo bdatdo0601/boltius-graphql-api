@@ -11,6 +11,7 @@ import Loader from "./dbLoader";
 
 //Plugins
 import GraphQLFastifyPlugin from "./plugins/graphql";
+import VoyagerFastifyPlugin from "./plugins/voyager";
 
 import Errors from "./graphql/errors";
 import Schema from "./graphql";
@@ -58,6 +59,14 @@ fastify
             },
             route: {
                 path: "/graphql",
+            },
+        });
+        fastify.register(VoyagerFastifyPlugin, {
+            route: {
+                path: "/voyager",
+            },
+            voyagerOptions: {
+                endpointUrl: "/graphql",
             },
         });
     });
