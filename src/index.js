@@ -1,5 +1,4 @@
 import Fastify from "fastify";
-import split from "split2";
 import { GraphQLError } from "graphql";
 import { formatError } from "apollo-errors";
 import fastifyJWTPlugin from "fastify-jwt";
@@ -9,16 +8,21 @@ import configStore from "./config";
 
 // Database
 import Loader from "./dbLoader";
-import "./dbsetup";
 
 //Plugins
 import GraphQLFastifyPlugin from "./plugins/graphql";
+import VoyagerFastifyPlugin from "./plugins/voyager";
 
 import Errors from "./graphql/errors";
 import Schema from "./graphql";
 
+const loggerConfig = {
+    level: "info",
+    prettyPrint: true,
+};
+
 const fastify = Fastify({
-    logger: configStore.retrieve("/logger"),
+    logger: configStore.retrieve("/logger") ? loggerConfig : false,
 });
 
 const errorFormatter = error => {
@@ -57,13 +61,21 @@ fastify
                 path: "/graphql",
             },
         });
+        fastify.register(VoyagerFastifyPlugin, {
+            route: {
+                path: "/voyager",
+            },
+            voyagerOptions: {
+                endpointUrl: "/graphql",
+            },
+        });
     });
 
 // Run the server!
 const start = async () => {
     try {
         await fastify.listen(3000);
-        fastify.log.info(`server listening on ${fastify.server.address().port}`);
+        fastify.log.info(`Server listening on ${fastify.server.address().port}`);
     } catch (err) {
         fastify.log.error(err);
         process.exit(1);
